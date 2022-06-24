@@ -9,7 +9,8 @@
 
 <!-- reference css -->
 
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
 
 <body>
@@ -22,6 +23,11 @@
 
 	<div id="container">
 		<div id="content">
+
+			<!--  add new button: Add customer -->
+			<input type="button" value="Add customer"
+				onclick="window.location.href='showFormAddCustomer'; return false;"
+				class="add-button" />
 
 			<!--  add out html table here -->
 			<table>

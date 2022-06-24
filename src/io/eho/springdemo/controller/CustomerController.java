@@ -5,30 +5,52 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.eho.springdemo.dao.CustomerDAO;
 import io.eho.springdemo.entity.Customer;
+import io.eho.springdemo.service.CustomerService;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 	
-	// inject the customer DAO
-	
+	// need to inject the customer service
 	@Autowired
-	private CustomerDAO customerDAO;
+	private CustomerService customerService;
 	
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public String listCustomers(Model model) {
 		
-		// get customers from DAO
-		List<Customer> customers = customerDAO.getCustomers();
+		// get customers from the customer service
+		List<Customer> customers = customerService.getCustomers();
 		
 		// add customer to the model
 		model.addAttribute("customers", customers);
 		
 		return "list-customers";
+	}
+	
+	@GetMapping("/showFormAddCustomer")
+	public String showFormAddCustomer(Model model) {
+		
+		// create model attribute to bind form data
+		Customer customer = new Customer();
+		model.addAttribute("customer", customer);
+		
+		return "new-customer-form";
+	}
+	
+	@PostMapping("/saveCustomer")
+	public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+
+		// save the customer using our service
+		customerService.saveCustomer(customer);
+		
+		return "redirect:/customer/list";
 	}
 
 }
