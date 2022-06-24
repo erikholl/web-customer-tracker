@@ -7,6 +7,9 @@
 
 <title>List customers</title>
 
+<!-- reference css -->
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 </head>
 
 <body>
