@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="io.eho.springdemo.util.SortUtils"%>
 
 <!DOCTYPE html>
 
@@ -30,20 +31,37 @@
 			<input type="button" value="Add customer"
 				onclick="window.location.href='showFormAddCustomer'; return false;"
 				class="add-button" />
-				
-				<!-- add a search box -->
-				<form:form action="search" method="GET">
+
+			<!-- add a search box -->
+			<form:form action="search" method="GET">
 				Search customer: <input type="text" name="searchName" />
 				<input type="submit" value="Search" class="add-button" />
-				</form:form>
+			</form:form>
 
 			<!--  add out html table here -->
 			<table>
+
+				<c:url var="sortLinkFirstName" value="/customer/list">
+					<c:param name="sort"
+						value="<%=Integer.toString(SortUtils.FIRST_NAME)%>" />
+				</c:url>
+				
+				<c:url var="sortLinkLastName" value="/customer/list">
+					<c:param name="sort"
+						value="<%=Integer.toString(SortUtils.LAST_NAME)%>" />
+				</c:url>
+				
+				<c:url var="sortLinkEmail" value="/customer/list">
+					<c:param name="sort"
+						value="<%=Integer.toString(SortUtils.EMAIL)%>" />
+				</c:url>
+				
+				
 				<tr>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Email</th>
-					<th>Update</th>
+					<th><a href="${sortLinkFirstName}">First name</a></th>
+					<th><a href="${sortLinkLastName}">Last name</a></th>
+					<th><a href="${sortLinkEmail}">Email</a></th>
+					<th>Action</th>
 					<!-- <th>Delete</th> -->
 				</tr>
 
@@ -65,8 +83,7 @@
 						<td>${tempCustomer.lastName}</td>
 						<td>${tempCustomer.email}</td>
 						<td>
-							<!--  display update and delete link --> 
-							<a href="${updateLink}">Update</a>
+							<!--  display update and delete link --> <a href="${updateLink}">Update</a>
 							<a href="${deleteLink}"
 							onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
 						</td>

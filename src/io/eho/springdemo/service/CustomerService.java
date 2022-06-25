@@ -6,7 +6,7 @@ import io.eho.springdemo.entity.Customer;
 
 public interface CustomerService {
 	
-	List<Customer> getCustomers();
+	List<Customer> getCustomers(int sortField);
 
 	void saveCustomer(Customer customer);
 
